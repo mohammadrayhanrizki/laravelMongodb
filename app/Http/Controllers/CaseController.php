@@ -12,7 +12,11 @@ class CaseController extends Controller
         // 1. Chart Data: Need separate query to get aggregates or all data for trend
         // For performance on large datasets, you should aggregate. For now, we limit to last 30 days or similar.
         // Assuming we want full trend, we get all but select only needed fields.
-        $chartData = CaseModel::orderBy('date', 'asc')->get(['date', 'new_confirmed']); // Optimized Projection
+        // 1. Chart Data: Limit to last 30 days for readability and performance
+        $chartData = CaseModel::orderBy('date', 'desc')
+            ->take(30)
+            ->get(['date', 'new_confirmed'])
+            ->sortBy('date'); // Re-sort chronologically for the chart (Left=Oldest, Right=Newest)
 
         $labels = $chartData->pluck('date')->map(function($date) {
             return $date instanceof \DateTimeInterface ? $date->format('d-M-y') : $date;

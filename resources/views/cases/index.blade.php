@@ -19,9 +19,9 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">COVID-19 Tracker</h1>
-            <p class="mt-2 text-lg text-gray-600">Daily statistics and trend analysis from local database.</p>
+        <div class="mb-10 text-center">
+            <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight mb-3">COVID-19 Tracker</h1>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto">Real-time statistics and 30-day trend analysis.</p>
         </div>
 
         <!-- Stats Cards -->
@@ -183,6 +183,12 @@
 
     <script>
         const ctx = document.getElementById('casesChart').getContext('2d');
+
+        // Create Gradient
+        let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(225, 29, 72, 0.5)'); // Red-600 with opacity
+        gradient.addColorStop(1, 'rgba(225, 29, 72, 0.0)'); // Transparent
+
         const casesChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -191,12 +197,15 @@
                     label: 'New Confirmed Cases',
                     data: @json($data),
                     borderColor: '#E11D48', // Tailwind Red-600
-                    backgroundColor: 'rgba(225, 29, 72, 0.1)',
-                    borderWidth: 2,
-                    pointBackgroundColor: '#E11D48',
-                    pointRadius: 3,
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#E11D48',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
                     fill: true,
-                    tension: 0.3 // Smooth curves
+                    tension: 0.4 // Smooth curves
                 }]
             },
             options: {
@@ -204,23 +213,43 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'top',
+                        display: false // Hide legend for cleaner look, title is enough
                     },
                     tooltip: {
                         mode: 'index',
                         intersect: false,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                        titleColor: '#1F2937',
+                        bodyColor: '#1F2937',
+                        borderColor: '#E5E7EB',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: false
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: '#F3F4F6'
+                            color: '#F3F4F6',
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            color: '#9CA3AF',
+                            font: {
+                                family: "'Inter', sans-serif"
+                            }
                         }
                     },
                     x: {
                         grid: {
                             display: false
+                        },
+                        ticks: {
+                            color: '#9CA3AF',
+                            font: {
+                                family: "'Inter', sans-serif"
+                            }
                         }
                     }
                 },
