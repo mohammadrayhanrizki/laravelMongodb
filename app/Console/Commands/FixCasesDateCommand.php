@@ -41,9 +41,9 @@ class FixCasesDateCommand extends Command
             }
 
             try {
-                // Parse "10-Mar-20"
+                // Parse "2-Mar-20" or "10-Mar-20" flexibly
                 $dateString = $case->date;
-                $carbonDate = Carbon::createFromFormat('d-M-y', $dateString)->setTime(0,0,0);
+                $carbonDate = Carbon::parse($dateString)->setTime(0,0,0);
                 
                 // Update directly using raw update to ensure type change
                 CaseModel::raw(function($collection) use ($case, $carbonDate) {

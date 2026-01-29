@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return redirect('/cases');
+    return view('welcome');
 });
 
 use App\Http\Controllers\CaseController;
