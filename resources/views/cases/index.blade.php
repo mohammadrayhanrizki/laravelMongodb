@@ -40,7 +40,7 @@
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Total Acc Confirmed</dt>
                                 <dd class="text-lg font-bold text-gray-900">
-                                    {{ number_format($cases->first()->acc_confirmed ?? 0) }}
+                                    {{ number_format($latest?->acc_confirmed ?? 0) }}
                                 </dd>
                             </dl>
                         </div>
@@ -62,7 +62,7 @@
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">New Confirmed</dt>
                                 <dd class="text-lg font-bold text-gray-900">
-                                    +{{ number_format($cases->first()->new_confirmed ?? 0) }}</dd>
+                                    +{{ number_format($latest?->new_confirmed ?? 0) }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Acc Negative</dt>
                                 <dd class="text-lg font-bold text-gray-900">
-                                    {{ number_format($cases->first()->acc_negative ?? 0) }}
+                                    {{ number_format($latest?->acc_negative ?? 0) }}
                                 </dd>
                             </dl>
                         </div>
@@ -103,7 +103,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Positive Rate</dt>
-                                <dd class="text-lg font-bold text-gray-900">{{ $cases->first()->positive_rate ?? '0%' }}
+                                <dd class="text-lg font-bold text-gray-900">{{ $latest?->positive_rate ?? '0%' }}
                                 </dd>
                             </dl>
                         </div>
@@ -149,7 +149,8 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($cases as $case)
                             <tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $case->date }}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    {{ $case->date instanceof \DateTimeInterface ? $case->date->format('d-M-y') : $case->date }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-bold">
                                     +{{ number_format($case->new_confirmed) }}</td>
@@ -171,6 +172,11 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+                {{ $cases->links() }}
             </div>
         </div>
     </div>

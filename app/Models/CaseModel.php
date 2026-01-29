@@ -16,4 +16,11 @@ class CaseModel extends Model
         'acc_negative',
         'positive_rate',
     ];
+
+    protected $casts = [
+        'date' => 'datetime',
+        'new_confirmed' => 'integer',
+        'acc_confirmed' => 'integer',
+        'acc_negative' => 'integer',
+    ];
 }
