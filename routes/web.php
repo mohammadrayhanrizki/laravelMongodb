@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 use App\Http\Controllers\CaseController;
 Route::get('/cases', [CaseController::class, 'index']);
+
