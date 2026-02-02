@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CaseModel;
 use App\Http\Resources\CaseResource;
+use Illuminate\Support\Facades\Validator;
+
 class CaseController extends Controller
 {
     /**
@@ -53,7 +55,25 @@ class CaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+            'new_confirmed' => 'required|integer',
+            'acc_confirmed' => 'required|integer',
+            'acc_negative' => 'required|integer',
+            'positive_rate' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        $data = CaseModel::create($request->all());
+        return new CaseResource($data);
+
+
     }
 
     /**
@@ -69,7 +89,32 @@ class CaseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $case = CaseModel::findOrFail($id);
+        if(!$case){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'ga ketemu waomwoawoaowmaow'
+            ], 404);
+        }
+
+
+        $validator = Validator::make($request->all(), [
+            'date' => 'sometimes|required|date',
+            'new_confirmed' => 'sometimes|required|integer',
+            'acc_confirmed' => 'sometimes|required|integer',
+            'acc_negative' => 'sometimes|required|integer',
+            'positive_rate' => 'sometimes|required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        $case->update($request->all());
+        return new CaseResource($case);
     }
 
     /**
