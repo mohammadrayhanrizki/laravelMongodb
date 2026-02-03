@@ -81,6 +81,7 @@ class CaseController extends Controller
      */
     public function show(string $id)
     {
+        
         return CaseModel::findOrFail($id)->toResource(CaseResource::class);
     }
 
@@ -122,6 +123,22 @@ class CaseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $case = CaseModel::findOrFail($id);
+        if(!$case){
+            return response()->json(
+                [
+                    'message' => 'ga ketemu waomwoawoaowmaow',
+                    'status' => 'error'
+                ],
+                404
+            );
+        }
+        
+        //delete data
+        $case->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'mantap coy berhasil dihapus'
+        ], 200);
     }
 }
