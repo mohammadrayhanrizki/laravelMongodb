@@ -137,9 +137,6 @@ class CaseController extends Controller
         
         //delete data
         $case->delete();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'mantap coy berhasil dihapus'
-        ], 200);
+        return new CaseResource($case, true, 'berhasil di update rey gacor kwkwwkwk');
     }
 }
