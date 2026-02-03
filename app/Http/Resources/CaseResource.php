@@ -11,11 +11,11 @@ class CaseResource extends JsonResource
     public $status;
     public $message;
 
-    public function __construct($status, $message,$resource)
+    public function __construct($resource, $status = true, $message = 'anjay berhasil rey')
     {
-        return parent::__construct($resource);
-        $this -> status = $status;
-        $this -> message = $message;
+        parent::__construct($resource);
+        $this->status = $status;
+        $this->message = $message;
     }
     /**
      * Transform the resource into an array.
