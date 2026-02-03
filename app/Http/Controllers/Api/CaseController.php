@@ -47,7 +47,8 @@ class CaseController extends Controller
     public function index()
     {
         $data = CaseModel::all();
-        return CaseResource::collection($data);
+        // return CaseResource::collection($data);
+        return new CaseResource(true, 'menampilkan data')
     }
 
     /**

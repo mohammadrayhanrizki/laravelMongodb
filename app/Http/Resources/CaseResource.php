@@ -24,10 +24,23 @@ class CaseResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // return [
+        //     "status" => $this -> status,
+        //     "message" => $this -> message,
+        //     "data"=> [
+        //         "id" => $this->_id,
+        //         "date" => $this->date,
+        //         "new_confirmed" => $this->new_confirmed,
+        //         "acc_confirmed" => $this->acc_confirmed,
+        //         "acc_negative" => $this->acc_negative,
+        //         "positive_rate" => $this->positive_rate,
+        //     ],
+        // ];
+
         return [
-            "status" => $this -> status,
-            "message" => $this -> message,
-            "data"=> [
+            'status' => $this -> status,
+            'message' => $this -> message,
+            'data'=> [
                 "id" => $this->_id,
                 "date" => $this->date,
                 "new_confirmed" => $this->new_confirmed,
@@ -35,6 +48,6 @@ class CaseResource extends JsonResource
                 "acc_negative" => $this->acc_negative,
                 "positive_rate" => $this->positive_rate,
             ],
-        ];
+        ]
     }
 }
