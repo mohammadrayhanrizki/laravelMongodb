@@ -82,7 +82,7 @@ class CaseController extends Controller
     public function show(string $id)
     {
         
-        return CaseModel::findOrFail($id)->toResource(CaseResource::class);
+        return new CaseResource(CaseModel::findOrFail($id));
     }
 
     /**
