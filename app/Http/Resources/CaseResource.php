@@ -48,6 +48,6 @@ class CaseResource extends JsonResource
                 "acc_negative" => $this->acc_negative,
                 "positive_rate" => $this->positive_rate,
             ],
-        ]
-    }
+        ];
+    }   
 }

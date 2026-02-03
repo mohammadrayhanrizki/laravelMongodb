@@ -48,7 +48,7 @@ class CaseController extends Controller
     {
         $data = CaseModel::all();
         // return CaseResource::collection($data);
-        return new CaseResource(true, 'menampilkan data')
+        return new CaseResource(true, 'menampilkan data', $data);
     }
 
     /**
