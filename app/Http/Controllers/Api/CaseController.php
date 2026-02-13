@@ -47,8 +47,11 @@ class CaseController extends Controller
     public function index()
     {
         $data = CaseModel::all();
-        // return CaseResource::collection($data);
-        return new CaseResource(true, 'menampilkan data', $data);
+        return response()->json([
+            'status' => true,
+            'message' => 'Data retrieved successfully',
+            'data' => CaseResource::collection($data)
+        ], 200);
     }
 
     /**
@@ -72,7 +75,11 @@ class CaseController extends Controller
         }
 
         $data = CaseModel::create($request->all());
-        return new CaseResource($data);
+        return response()->json([
+            'status' => true,
+            'message' => 'Data created successfully',
+            'data' => new CaseResource($data)
+        ], 201);
 
 
     }
@@ -83,7 +90,12 @@ class CaseController extends Controller
     public function show(string $id)
     {
         
-        return new CaseResource(CaseModel::findOrFail($id));
+        $case = CaseModel::findOrFail($id);
+        return response()->json([
+            'status' => true,
+            'message' => 'Data found',
+            'data' => new CaseResource($case)
+        ], 200);
     }
 
     /**
@@ -116,7 +128,11 @@ class CaseController extends Controller
         }
 
         $case->update($request->all());
-        return new CaseResource($case);
+        return response()->json([
+            'status' => true,
+            'message' => 'berhasil di update rey gacor kwkwwkwk',
+            'data' => new CaseResource($case)
+        ], 200);
     }
 
     /**
@@ -124,7 +140,7 @@ class CaseController extends Controller
      */
     public function destroy(string $id)
     {
-        $case = CaseModel::findOrFail($id);
+         $case = CaseModel::findOrFail($id);
         if(!$case){
             return response()->json(
                 [
@@ -137,6 +153,9 @@ class CaseController extends Controller
         
         //delete data
         $case->delete();
-        return new CaseResource($case, true, 'berhasil di update rey gacor kwkwwkwk');
+        return response()->json([
+            'status' => true,
+            'message' => 'mantap coy berhasil dihapus',
+        ], 200);
     }
 }
